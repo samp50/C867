@@ -21,15 +21,6 @@ private:
     enum DegreeProgram DegreeProgram;
     
 public:
-    /*
-    Student(std::string StudentID, std::string FirstName, std::string LastName, std::string Email, int Age, int DaysToCompleteCourse[3], enum DegreeProgram) : StudentID(StudentID), FirstName(FirstName), LastName(LastName),
-    Email(Email), Age(Age),
-    DegreeProgram(DegreeProgram) {
-        for (int i = 0; i < 3; ++i) {
-                this->DaysToCompleteCourse[i] = DaysToCompleteCourse[i];
-            }
-    }
-     */
     Student(const std::string& studentID, const std::string& firstName, const std::string& lastName,
             const std::string& email, int age, int daysToCompleteCourse1, int daysToCompleteCourse2, int daysToCompleteCourse3, enum DegreeProgram degreeProgram)
             : StudentID(studentID), FirstName(firstName), LastName(lastName),
