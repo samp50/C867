@@ -26,13 +26,22 @@ void Roster::parse(std::string studentData) {
         std::string lastName = std::get_if<std::string>(&studentDataArray[2]) ? *std::get_if<std::string>(&studentDataArray[2]) : "";
         std::string email = std::get_if<std::string>(&studentDataArray[3]) ? *std::get_if<std::string>(&studentDataArray[3]) : "";
 
-        int age = std::stoi(std::get<std::string>(studentDataArray[4]));  // Convert to int
-        int daysInCourse1 = std::stoi(std::get<std::string>(studentDataArray[5]));  // Convert to int
-        int daysInCourse2 = std::stoi(std::get<std::string>(studentDataArray[6]));  // Convert to int
-        int daysInCourse3 = std::stoi(std::get<std::string>(studentDataArray[7]));  // Convert to int
+        int age = std::stoi(std::get<std::string>(studentDataArray[4]));
+        int daysInCourse1 = std::stoi(std::get<std::string>(studentDataArray[5]));
+        int daysInCourse2 = std::stoi(std::get<std::string>(studentDataArray[6]));
+        int daysInCourse3 = std::stoi(std::get<std::string>(studentDataArray[7]));
 
-        DegreeProgram degreeProgram = std::get_if<DegreeProgram>(&studentDataArray[8]) ? *std::get_if<DegreeProgram>(&studentDataArray[8]) : DegreeProgram();
+        DegreeProgram degreeProgram;
+        std::string degreeProgramString = std::get<std::string>(studentDataArray[8]);
 
+        if (degreeProgramString == "SECURITY") {
+            degreeProgram = SECURITY;
+        } else if (degreeProgramString == "NETWORK") {
+            degreeProgram = NETWORK;
+        } else {
+            degreeProgram = SOFTWARE;
+        }
+        
         add(studentID, firstName, lastName, email, age, daysInCourse1, daysInCourse2, daysInCourse3, degreeProgram);
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
@@ -56,6 +65,6 @@ void Roster::add(std::string studentID, std::string firstName, std::string lastN
 
 void Roster::printAll() {
     for (int i = 0; i < 5; i++) {
-        std::cout << "Type of myObject: " << classRosterArray[i]->getEmail() << std::endl;
+        classRosterArray[i]->print();
     }
 }

@@ -17,7 +17,6 @@ int main(int argc, const char * argv[]) {
     //S->print();
     Roster roster;
     for (int i = 0; i < 5; ++i) {
-        //std::cout << i;
         roster.parse(studentData[i]);
     }
     roster.printAll();

@@ -21,6 +21,7 @@ private:
     enum DegreeProgram DegreeProgram;
     
 public:
+    //static const std::string degreeTypeStrings[]; // delete?
     Student(const std::string& studentID, const std::string& firstName, const std::string& lastName,
             const std::string& email, int age, int daysToCompleteCourse1, int daysToCompleteCourse2, int daysToCompleteCourse3, enum DegreeProgram degreeProgram)
             : StudentID(studentID), FirstName(firstName), LastName(lastName),
@@ -88,14 +89,12 @@ public:
     
     void print() {
         std::cout << getStudentID() << '\t';
-        std::cout << getFirstName() << '\t';
-        std::cout << getLastName() << '\t';
-        std::cout << getEmail() << '\t';
-        std::cout << getAge() << '\t';
-        std::cout << getDaysToCompleteCourse(0) << '\t';
-        std::cout << getDaysToCompleteCourse(1) << '\t';
-        std::cout << getDaysToCompleteCourse(2) << '\t';
-        std::cout << degreeTypeStrings[getDegreeProgram()] << '\t';
+        std::cout << "First name: " << getFirstName() << '\t';
+        std::cout << "Last name: " << getLastName() << '\t';
+        //std::cout << getEmail() << '\t';
+        std::cout << "Age: " << getAge() << '\t';
+        std::cout << "Course length: {" << getDaysToCompleteCourse(0) << ", " << getDaysToCompleteCourse(1) << ", " << getDaysToCompleteCourse(2) << "}" << '\t';
+        std::cout << "Degree program: " << degreeTypeStrings[getDegreeProgram()] << '\n';
     };
 };
 
