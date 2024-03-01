@@ -20,4 +20,5 @@ int main(int argc, const char * argv[]) {
         //std::cout << i;
         roster.parse(studentData[i]);
     }
+    roster.printAll();
 }
