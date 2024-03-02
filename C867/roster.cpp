@@ -52,26 +52,35 @@ void Roster::add(std::string studentID, std::string firstName, std::string lastN
     classRosterArray[++lastIndex] = new Student(studentID, firstName, lastName, email, age, daysToCompleteCourse1, daysToCompleteCourse2, daysToCompleteCourse3, degreeProgram);
 }
 
-void Roster::remove(std::string studentID) {
-    bool found = false;
+void Roster::remove(std::string id) {
+
+    bool foundStudent = false;
     for (int i = 0; i < 5; i++) {
-        std::string id = classRosterArray[i]->getStudentID();
-        if (id == studentID) {
-            Student* temp = classRosterArray[i];
-            classRosterArray[i] = classRosterArray[5 - 1];
-            classRosterArray[5 - 1] = temp;
-            }
-        //Roster::lastIndex--;
+        if (classRosterArray[i] != nullptr && id == classRosterArray[i]->getStudentID()) {
+            delete classRosterArray[i];
+            classRosterArray[i] = nullptr;
+            foundStudent = true;
+            break;
         }
-    
-        if (!found) {
-            std::cerr << "The student with the ID: " << studentID << " was not found." << std::endl;
-            }
+    }
+    if (foundStudent == false) {
+        std::cout << "Error: Student " << id << " Not Found." << std::endl;
+    }
+    else if (foundStudent == true) {
+        std::cout << "Student " << id << " removed." << std::endl;
+    }
+    return;
 }
 
 void Roster::printAll() {
     for (int i = 0; i < 5; i++) {
-        classRosterArray[i]->print();
+        if (classRosterArray[i] == nullptr)
+            {
+                continue;
+            }
+            else {
+                classRosterArray[i]->print();
+            }
     }
 }
 
@@ -110,9 +119,10 @@ void Roster::printByDegreeProgram(DegreeProgram degreeProgram) {
 }
 
 Roster::~Roster() {
-    std::cout << "Backend Info: roster destructor called" << std::endl;
     for (size_t i = 0; i < 5; i++) {
-        delete classRosterArray[i];
+        if (classRosterArray[i] != nullptr) {
+            delete classRosterArray[i];
+        }
     }
     return;
 }
