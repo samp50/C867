@@ -15,9 +15,22 @@ int main(int argc, const char * argv[]) {
     //Student student("A123", "Tom", "Sawyer", "tom@sawyer.com", 20, {1, 2, 3}, DegreeProgram::SOFTWARE); // works!
     //Student * S = new Student("A123", "Tom", "Sawyer", "tom@sawyer.com", 20, 1, 2, 3, DegreeProgram::SOFTWARE); // works!
     //S->print();
-    Roster roster;
+    Roster classRoster;
     for (int i = 0; i < 5; ++i) {
-        roster.parse(studentData[i]);
+        classRoster.parse(studentData[i]);
     }
-    roster.printAll();
+    
+    classRoster.printAll();
+
+    classRoster.printInvalidEmails();
+
+    classRoster.printAverageDaysInCourse("A1");
+    
+    classRoster.printByDegreeProgram(SOFTWARE);
+
+    classRoster.remove("A3");
+
+    classRoster.printAll();
+
+    classRoster.remove("A3");
 }

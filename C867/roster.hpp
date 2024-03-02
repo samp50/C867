@@ -21,6 +21,12 @@ class Roster {
         void parse(std::string studentData);
         void add(std::string studentID, std::string firstName, std::string lastName, std::string email, int age, int daysToCompleteCourse1, int daysToCompleteCourse2, int daysToCompleteCourse3, DegreeProgram degreeProgram);
         void printAll();
+        void printAverageDaysInCourse(std::string studentID);
+        void printInvalidEmails();
+        void printByDegreeProgram(DegreeProgram degreeProgram);
+        void remove(std::string studentID);
+    
+        ~Roster();
 };
 
 #endif /* roster_hpp */

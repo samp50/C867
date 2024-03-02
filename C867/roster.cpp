@@ -50,21 +50,69 @@ void Roster::parse(std::string studentData) {
 
 void Roster::add(std::string studentID, std::string firstName, std::string lastName, std::string email, int age, int daysToCompleteCourse1, int daysToCompleteCourse2, int daysToCompleteCourse3, DegreeProgram degreeProgram) {
     classRosterArray[++lastIndex] = new Student(studentID, firstName, lastName, email, age, daysToCompleteCourse1, daysToCompleteCourse2, daysToCompleteCourse3, degreeProgram);
-    /*
-    S->setStudentID(studentID);
-    S->setFirstName(firstName);
-    S->setLastName(lastName);
-    S->setEmail(email);
-    S->setAge(age);
-    S->setDegreeProgram(degreeProgram);
-    S->setDaysToCompleteCourse(0, daysToCompleteCourse1);
-    S->setDaysToCompleteCourse(1, daysToCompleteCourse2);
-    S->setDaysToCompleteCourse(2, daysToCompleteCourse3);
-     */
+}
+
+void Roster::remove(std::string studentID) {
+    bool found = false;
+    for (int i = 0; i < 5; i++) {
+        std::string id = classRosterArray[i]->getStudentID();
+        if (id == studentID) {
+            Student* temp = classRosterArray[i];
+            classRosterArray[i] = classRosterArray[5 - 1];
+            classRosterArray[5 - 1] = temp;
+            }
+        //Roster::lastIndex--;
+        }
+    
+        if (!found) {
+            std::cerr << "The student with the ID: " << studentID << " was not found." << std::endl;
+            }
 }
 
 void Roster::printAll() {
     for (int i = 0; i < 5; i++) {
         classRosterArray[i]->print();
     }
+}
+
+void Roster::printAverageDaysInCourse(std::string studentID) {
+    for (int i = 0; i < 5; i++) {
+        if (classRosterArray[i]->getStudentID() == studentID) {
+            int average = (classRosterArray[i]->getDaysToCompleteCourse(0) + classRosterArray[i]->getDaysToCompleteCourse(1) + classRosterArray[i]->getDaysToCompleteCourse(2)) / 3;
+            
+            std::cout << "Average days in course: " << average << std::endl;
+            }
+        }
+}
+
+void Roster::printInvalidEmails() {
+    // Note: A valid email should include an at sign ('@') and period ('.') and should not include a space (' ')
+    for (int i = 0; i < 5; i++) {
+        std::string email = classRosterArray[i]->getEmail();
+        if (email.find('@') != std::string::npos &&
+            email.find('.') != std::string::npos &&
+            email.find(' ') == std::string::npos) {
+                //std::cout << "String meets the criteria." << std::endl;
+            } else {
+                std::cout << "Invalid email: " << email << std::endl;
+            }
+    }
+}
+
+void Roster::printByDegreeProgram(DegreeProgram degreeProgram) {
+    for (int i = 0; i < 5; i++) {
+        std::string degreeProgramString = degreeTypeStrings[degreeProgram];
+        std::string studentDegreeProgram = degreeTypeStrings[classRosterArray[i]->getDegreeProgram()];
+        if (studentDegreeProgram == degreeProgramString) {
+            classRosterArray[i]->print();
+        }
+    }
+}
+
+Roster::~Roster() {
+    std::cout << "Backend Info: roster destructor called" << std::endl;
+    for (size_t i = 0; i < 5; i++) {
+        delete classRosterArray[i];
+    }
+    return;
 }
